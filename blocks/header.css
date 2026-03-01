@@ -1,25 +1,16 @@
 .header {
-  min-height: 120px;
-  font-family: "Inter", Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    margin: 45px 200px 0px;
+    border-bottom:  1px solid #545454;
 }
 
-.header__logo {
-  width: 173px;
-  height: 33px;
-  object-fit: contain;
+.header__title {
+    font-weight: 500;
+    font-size: 42px;
+    margin: 0 auto 41px auto;
 }
 
-@media screen and (max-width: 544px) {
-  .header {
-    min-height: 85px;
-  }
-
-  .header__logo {
-    width: 126px;
-    height: 24px;
-    margin: 0 0 0 7px;
-  }
+.header__title-small{
+    font-weight: 400;
+    font-size: 16px;
+    vertical-align: text-top;
 }
