@@ -1,5 +1,4 @@
 //SEÇÃO PROFILE EDIT
-
 // Variáveis da sessão profile
 const editProfilePopup = document.querySelector("#profile"); // Variável da janela popup de edição de perfil(hidden)
 const editProfileButton = document.querySelector("#edit-button"); // Botão com simbolo de caneta para abrir popup de edição
@@ -46,8 +45,7 @@ formElement.addEventListener("submit", (evt) => {
 
 //----------------------------------------------------------------------------------
 
-//SEÇÃO ADD CARD
-
+// SESSÃO DE FORMULÁRIO DE ADIÇÃO DE CARD
 // Variáveis da sessão add-card
 const addPopup = document.querySelector("#add-popup"); // Variável da janela de adicionar card (hidden)
 const addButton = document.querySelector("#add-button"); // Botão de adicionar card (+)
@@ -81,6 +79,89 @@ closeAddButton.addEventListener("click", closeAddPopup);
     toggleButtonState(addInputs, submitAddButton);
   });
 });
+//------------------------------------------------------------
+
+// SESSÃO ELEMENTS (CARDS DE IMAGENS)
+// Cards iniciais (objeto com as chaves de cada card inicial)
+const initialCards = [
+  {
+    name: "Fernando de Noronha",
+    link: "https://images.pexels.com/photos/11159713/pexels-photo-11159713.jpeg",
+  },
+  {
+    name: "Gramado",
+    link: "https://images.pexels.com/photos/18171957/pexels-photo-18171957.jpeg",
+  },
+  {
+    name: "Manaus",
+    link: "https://images.pexels.com/photos/29759408/pexels-photo-29759408.jpeg",
+  },
+  {
+    name: "Rio de Janeiro",
+    link: "https://images.pexels.com/photos/1458036/pexels-photo-1458036.jpeg",
+  },
+  {
+    name: "Salvador",
+    link: "https://images.pexels.com/photos/31792594/pexels-photo-31792594.jpeg",
+  },
+  {
+    name: "São Paulo",
+    link: "https://images.pexels.com/photos/72479/pexels-photo-72479.jpeg",
+  },
+];
+
+// Classe Card para criar novos cards a partir do template
+class Card {
+  // Construtor da classe Card que recebe um objeto com as chaves name e link para criar um novo card
+  constructor(initialCards, templateSelector) {
+    this.name = initialCards.name;
+    this.image = initialCards.link;
+    this.templateSelector = templateSelector;
+  }
+
+  // Método para obter o template do card (tags do HTML) e clonar para criar um novo card
+  getTemplate() {
+    const cardElement = document
+      .querySelector(templateSelector)
+      .content.querySelector(".elements__card")
+      .cloneNode(true);
+   
+      return cardElement;
+  }
+
+  // Método para gerar o card com os dados do objeto e os elementos do template e adicionar os eventListeners de cada card
+  generateCard() {
+    this.element = this.getTemplate();
+    this.setEventListeners();
+
+    const cardImage = this.element.querySelector(".elements__image");
+    const cardText = this.element.querySelector(".elements__text");
+
+  }
+
+
+  openImagePopup(name, link) {
+    imagePopupImage.src = link;
+    imagePopupImage.alt = name;
+    imagePopupCaption.textContent = name;
+    imagePopup.classList.add("popup__opened");
+  }
+
+closeImagePopup() {
+  imagePopup.classList.remove("popup__opened");
+  }
+
+
+
+  setEventListeners() {
+    
+  }
+}
+
+const card = new Card(initialCards[0], ".elements__template");
+const cardElement = card.generateCard();
+card.setEventListeners();
+cardArea.append(cardElement);
 
 // Evento de submissão do formulário de adição de card para criar um novo card
 addForm.addEventListener("submit", (evt) => {
@@ -98,23 +179,8 @@ closeAddPopup();
 
 // SESSÃO IMAGE POPUP
 
-// Variáveis do popup de imagem
-const imagePopup = document.querySelector(".popup_type_image"); // Variável da janela popup de imagem (hidden)
-const imagePopupImage = imagePopup.querySelector(".popup__image"); // Variável da imagem do popup de imagem (a imagem que vai aparecer no popup)
-const imagePopupCaption = imagePopup.querySelector(".popup__caption"); // Variável da legenda do popup de imagem (o texto que vai aparecer abaixo da imagem no popup)
-const imagePopupCloseButton = imagePopup.querySelector(".popup__button_type_close"); // Variável do botão de fechar do popup de imagem
 
-// Função de abrir popup de imagem com o nome e link da imagem do card clicado
-function openImagePopup(name, link) {
-  imagePopupImage.src = link;
-  imagePopupImage.alt = name;
-  imagePopupCaption.textContent = name;
-  imagePopup.classList.add("popup__opened");
-}
 
-function closeImagePopup() {
-  imagePopup.classList.remove("popup__opened");
-}
 
 // Eventos de fechar popup de imagem
 
@@ -164,33 +230,7 @@ document.addEventListener("keydown", handleEscClose);
 
 //SESSÃO ELEMENTES
 
-// Cards iniciais (objeto com as chaves de cada card inicial)
-const initialCards = [
-  {
-    name: "Fernando de Noronha",
-    link: "https://images.pexels.com/photos/11159713/pexels-photo-11159713.jpeg",
-  },
-  {
-    name: "Gramado",
-    link: "https://images.pexels.com/photos/18171957/pexels-photo-18171957.jpeg",
-  },
-  {
-    name: "Manaus",
-    link: "https://images.pexels.com/photos/29759408/pexels-photo-29759408.jpeg",
-  },
-  {
-    name: "Rio de Janeiro",
-    link: "https://images.pexels.com/photos/1458036/pexels-photo-1458036.jpeg",
-  },
-  {
-    name: "Salvador",
-    link: "https://images.pexels.com/photos/31792594/pexels-photo-31792594.jpeg",
-  },
-  {
-    name: "São Paulo",
-    link: "https://images.pexels.com/photos/72479/pexels-photo-72479.jpeg",
-  },
-];
+
 
 // Seleciona o template e o container de cards
 const template = document.querySelector(".elements__template"); // Variável de toda seção do template
