@@ -93,6 +93,14 @@
   padding: 0;
 }
 
+.popup_type_image .popup__button_type_close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 32px;
+  height: 32px;
+}
+
 .popup__image {
   max-width: 75vw;
   max-height: 75vh;

@@ -1,4 +1,6 @@
-//SEÇÃO PROFILE EDIT
+import Card from "./card.js";
+
+//SEÇÃO FORMULARIO PROFILE EDIT
 // Variáveis da sessão profile
 const editProfilePopup = document.querySelector("#profile"); // Variável da janela popup de edição de perfil(hidden)
 const editProfileButton = document.querySelector("#edit-button"); // Botão com simbolo de caneta para abrir popup de edição
@@ -79,89 +81,6 @@ closeAddButton.addEventListener("click", closeAddPopup);
     toggleButtonState(addInputs, submitAddButton);
   });
 });
-//------------------------------------------------------------
-
-// SESSÃO ELEMENTS (CARDS DE IMAGENS)
-// Cards iniciais (objeto com as chaves de cada card inicial)
-const initialCards = [
-  {
-    name: "Fernando de Noronha",
-    link: "https://images.pexels.com/photos/11159713/pexels-photo-11159713.jpeg",
-  },
-  {
-    name: "Gramado",
-    link: "https://images.pexels.com/photos/18171957/pexels-photo-18171957.jpeg",
-  },
-  {
-    name: "Manaus",
-    link: "https://images.pexels.com/photos/29759408/pexels-photo-29759408.jpeg",
-  },
-  {
-    name: "Rio de Janeiro",
-    link: "https://images.pexels.com/photos/1458036/pexels-photo-1458036.jpeg",
-  },
-  {
-    name: "Salvador",
-    link: "https://images.pexels.com/photos/31792594/pexels-photo-31792594.jpeg",
-  },
-  {
-    name: "São Paulo",
-    link: "https://images.pexels.com/photos/72479/pexels-photo-72479.jpeg",
-  },
-];
-
-// Classe Card para criar novos cards a partir do template
-class Card {
-  // Construtor da classe Card que recebe um objeto com as chaves name e link para criar um novo card
-  constructor(initialCards, templateSelector) {
-    this.name = initialCards.name;
-    this.image = initialCards.link;
-    this.templateSelector = templateSelector;
-  }
-
-  // Método para obter o template do card (tags do HTML) e clonar para criar um novo card
-  getTemplate() {
-    const cardElement = document
-      .querySelector(templateSelector)
-      .content.querySelector(".elements__card")
-      .cloneNode(true);
-   
-      return cardElement;
-  }
-
-  // Método para gerar o card com os dados do objeto e os elementos do template e adicionar os eventListeners de cada card
-  generateCard() {
-    this.element = this.getTemplate();
-    this.setEventListeners();
-
-    const cardImage = this.element.querySelector(".elements__image");
-    const cardText = this.element.querySelector(".elements__text");
-
-  }
-
-
-  openImagePopup(name, link) {
-    imagePopupImage.src = link;
-    imagePopupImage.alt = name;
-    imagePopupCaption.textContent = name;
-    imagePopup.classList.add("popup__opened");
-  }
-
-closeImagePopup() {
-  imagePopup.classList.remove("popup__opened");
-  }
-
-
-
-  setEventListeners() {
-    
-  }
-}
-
-const card = new Card(initialCards[0], ".elements__template");
-const cardElement = card.generateCard();
-card.setEventListeners();
-cardArea.append(cardElement);
 
 // Evento de submissão do formulário de adição de card para criar um novo card
 addForm.addEventListener("submit", (evt) => {
@@ -175,17 +94,6 @@ toggleButtonState(addInputs, submitAddButton); // Reseta o estado do botão de e
 closeAddPopup();
 });
 
-//-------------------------------------------------------------------------------------
-
-// SESSÃO IMAGE POPUP
-
-
-
-
-// Eventos de fechar popup de imagem
-
-imagePopupCloseButton.addEventListener("click", closeImagePopup);
-imagePopup.addEventListener("mousedown", handleOverlayClick);
 
 // FUNÇÕES COMUNS PARA OS DOIS FORMULARIOS DE POPUP (EDITAR PERFIL E ADICIONAR CARD)
 
@@ -224,56 +132,74 @@ function handleEscClose(evt) {
   }
 }
 
+// EventListener para fechar o popup ao clicar na tecla Esc (escuta o evento de teclado em toda a página e fecha qualquer popup aberto)
 document.addEventListener("keydown", handleEscClose);
 
-//----------------------------------------------------------------------------------
-
-//SESSÃO ELEMENTES
 
 
+//------------------------------------------------------------
+
+
+
+// SESSÃO ELEMENTS (CARDS DE IMAGENS)
+// Cards iniciais (objeto com as chaves de cada card inicial)
+const cardData = [
+  {
+    name: "Fernando de Noronha",
+    link: "https://images.pexels.com/photos/11159713/pexels-photo-11159713.jpeg",
+  },
+  {
+    name: "Gramado",
+    link: "https://images.pexels.com/photos/18171957/pexels-photo-18171957.jpeg",
+  },
+  {
+    name: "Manaus",
+    link: "https://images.pexels.com/photos/29759408/pexels-photo-29759408.jpeg",
+  },
+  {
+    name: "Rio de Janeiro",
+    link: "https://images.pexels.com/photos/1458036/pexels-photo-1458036.jpeg",
+  },
+  {
+    name: "Salvador",
+    link: "https://images.pexels.com/photos/31792594/pexels-photo-31792594.jpeg",
+  },
+  {
+    name: "São Paulo",
+    link: "https://images.pexels.com/photos/72479/pexels-photo-72479.jpeg",
+  },
+];
 
 // Seleciona o template e o container de cards
-const template = document.querySelector(".elements__template"); // Variável de toda seção do template
-const cardArea = document.querySelector(".elements__cards"); // variavel de card inicial (um único)
+const cardArea = document.querySelector(".elements__cards"); // Variável do container onde os cards vão ser inseridos
 
-// Função para criar novo card 
-function createCard(name, link) {
-  //Variavel  que pega o conteúdo do card para criação de novas variaveis dos elementos dentro do card
-  const cardElement = template.content.querySelector(".elements__card").cloneNode(true); 
+cardData.forEach(({ name, link }) => {
+  const card = new Card( { name, link }, ".elements__template", openImagePopup);
+  const cardElement = card.generateCard();
+  // card.setEventListeners();
+  cardArea.append(cardElement);
+});
 
-  // Variáveis criadas para cada elemento do card
-  const cardImage = cardElement.querySelector(".elements__image"); // Seleciona imagem do card
-  const cardText = cardElement.querySelector(".elements__text"); // Seleciona texto do card
-  const cardTrashButton = cardElement.querySelector(".elements__button_type_trash"); // Seleciona botão de lixeira
-  const cardLikeButton = cardElement.querySelector(".elements__button_type_like"); // Seleciona botão de like
-  const buttonCardImage = cardElement.querySelector(".elements__image-button"); // Seleciona o botão que envolve a imagem para abri-la
+function openImagePopup(name, link) {
+  const imagePopup = document.querySelector(".popup_type_image");
+  const imagePopupImage = imagePopup.querySelector(".popup__image");
+  const imagePopupCaption = imagePopup.querySelector(".popup__caption");
+  const popupCloseButton = imagePopup.querySelector(".popup__button_type_close");
 
-  // Define conteúdo do card usando o objeto initial cards
-  cardImage.src = link;
-  cardImage.alt = name;
-  cardText.textContent = name;
-
-
-  // Evento de deletar um card
-  cardTrashButton.addEventListener("click", () => cardElement.remove());
-
-  // Evento de curtir
-  cardLikeButton.addEventListener("click", () => {
-    cardLikeButton.classList.toggle("elements__button_type_like-active");
+  imagePopupImage.src = link;
+  imagePopupImage.alt = name;
+  imagePopupCaption.textContent = name;
+  popupCloseButton.addEventListener("click", () => {
+    imagePopup.classList.remove("popup__opened");
   });
 
-  // Abrir janela de imagem
-  buttonCardImage.addEventListener("click", () => {
-    openImagePopup(name, link);
-  });
-
-  return cardElement;
+  imagePopup.classList.add("popup__opened");
 }
 
-// Adiciona os cartões iniciais
-initialCards.forEach(({ name, link }) => {
-  const card = createCard(name, link);
-  cardArea.append(card);
-});
-//------------------------------------------
+
+
+
+
+
+
 
