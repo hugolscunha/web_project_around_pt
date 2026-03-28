@@ -87,7 +87,7 @@
   border-radius: 2px;
 }
 
-.popup_type_image .popup__container {
+.popup_type_image {
   background: transparent;
   box-shadow: none;
   padding: 0;
