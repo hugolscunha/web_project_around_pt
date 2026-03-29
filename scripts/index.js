@@ -104,8 +104,9 @@ addForm.addEventListener("submit", (evt) => {
   const newCard = createCard(localNameInput.value, linkInput.value);
   cardArea.prepend(newCard);
 
+  
+  addFormValidator.resetValidation();
   addForm.reset();
-  addFormValidator.toggleButtonState();
   closePopup(addPopup);
 });
 

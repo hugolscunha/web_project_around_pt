@@ -69,6 +69,13 @@ export default class FormValidator {
     }
   }
 
+  resetValidation(){
+    this.#toggleButtonState();
+    this.#inputList.forEach((input) => {
+      this.#hideInputError(input);
+    });
+  }
+
   #setEventListeners(){
     this.#toggleButtonState(); // ajusta botão quando o formulário abre
 
