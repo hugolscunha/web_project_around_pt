@@ -6,7 +6,7 @@
     <meta name="description" content="Lugares pelo Brasil" />
     <meta name="author" content="Hugo Cunha" />
     <meta name="keywords" content="HTML, CSS, JavaScript" />
-    <link rel="stylesheet" href="./pages/index.css" />
+    <link rel="stylesheet" href="./page/index.css" />
     <link rel="shortcut icon" href="./brazil-favicon.png" type="image/x-icon" />
     <title>BR Afora</title>
   </head>
@@ -105,7 +105,7 @@
         </p>
       </footer>
       <!-- Popup Profile -->
-      <div class="popup" id="profile">
+      <div class="popup" id="profile-popup">
         <div class="popup__container">
           <button class="popup__button popup__button_type_close" type="button">
             <img
@@ -128,15 +128,15 @@
               />
               <span class="popup__error popup__error_type_name"></span>
               <input
-                class="popup__item popup__item_type_about"
+                class="popup__item popup__item_type_description"
                 type="text"
-                name="about"
+                name="description"
                 placeholder="Sobre mim"
                 minlength="2"
                 maxlength="200"
                 required
               />
-              <span class="popup__error popup__error_type_about"></span>
+              <span class="popup__error popup__error_type_description"></span>
               <button
                 class="popup__button popup__button_type_send"
                 type="submit"
@@ -166,7 +166,7 @@
           <form class="popup__form" id="add-form">
             <fieldset class="popup__name" name="new-place">
               <input
-                class="popup__item popup__item_type_name"
+                class="popup__item popup__item_type_place"
                 id="place-input"
                 type="text"
                 name="place"
@@ -209,6 +209,6 @@
         </div>
       </div>
     </div>
-    <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./page/index.js"></script>
   </body>
 </html>
